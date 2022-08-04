@@ -4,30 +4,30 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 from itertools import zip_longest
+import pandas as pd
 
+# link = "https://www.alsoouq.com/saudi-arabia-offers/panda-offers/page/"
+# # print(result.content)
 
-link = "https://www.alsoouq.com/saudi-arabia-offers/panda-offers/page/"
-# print(result.content)
+# weekly_offers_link = []
+# for i in range(1, 3):
+#     src = requests.get(link+str(i)).content
+#     soup = BeautifulSoup(src, "lxml")
+#     weekly_offers_link.extend(soup.select("a.more-link"))
 
-weekly_offers_link = []
-for i in range(1, 3):
-    src = requests.get(link+str(i)).content
-    soup = BeautifulSoup(src, "lxml")
-    weekly_offers_link.extend(soup.select("a.more-link"))
+# # print(weekly_offers_link[1].attrs["href"])
 
-# print(weekly_offers_link[1].attrs["href"])
-
-for i in range(len(weekly_offers_link)):
-    weekly_offers_link[i] = weekly_offers_link[i].attrs["href"]
+# for i in range(len(weekly_offers_link)):
+#     weekly_offers_link[i] = weekly_offers_link[i].attrs["href"]
 
 
 # print(weekly_offers_link)
 
 
-src = requests.get(weekly_offers_link[1]).content
-soup = BeautifulSoup(src, "lxml")
-page_images = soup.select("noscript")
-print(page_images[1].text)
+# src = requests.get(weekly_offers_link[1]).content
+# soup = BeautifulSoup(src, "lxml")
+# page_images = soup.select("noscript")
+# print(page_images[1].text)
 # print([x.encode('utf-8') for x in soup.select("noscript")])
 
 
@@ -48,3 +48,6 @@ print(page_images[1].text)
 
 
 # print([x.encode('utf-8') for x in page_images])
+d = pd.concat([pd.read_csv(r'data\danube\booklet_danube.csv'), pd.read_csv(r'data/othaim/booklet_othaim.csv'),
+              pd.read_csv(r'data/pandah/booklet_pandah.csv'), pd.read_csv(r'data/tamimi/booklet_tamimi.csv')])
+print(str(d.count()))
